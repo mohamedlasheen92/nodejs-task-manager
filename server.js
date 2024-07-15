@@ -3,11 +3,10 @@ const app = express()
 require('dotenv').config()
 require('./db/connect')
 
+const tasksRouter = require('./routes/tasks')
 
-app.get('/', (req, res) => {
-  console.log(process.env.PORT);
-  res.send('Hello World!')
-})
+
+app.use('/api/v1/tasks', tasksRouter)
 
 
 
