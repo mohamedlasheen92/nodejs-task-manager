@@ -3,9 +3,9 @@ const {Schema, model} = require('mongoose')
 const schema = new Schema({
   name: {
     type: String,
-    required: [true, 'Task name is Required'],
+    required: [true, 'Please provide a value for the task name'],
     trim: true,
-    maxlength: [20, 'Youe have exceeded the max Length']
+    maxlength: [20, 'Oops! You’ve gone beyond the 20-character limit']
   },
   completed: {
     type: Boolean,

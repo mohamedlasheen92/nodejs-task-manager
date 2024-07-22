@@ -2,25 +2,18 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 require('./db/connect')
+const notFound = require('./middlewares/not-found')
+const errorHandlerMiddleware = require('./middlewares/error-handler')
 
 const tasksRouter = require('./routes/tasks')
 
 // *** Middlewares
 app.use(express.json())
 
-
 app.use('/api/v1/tasks', tasksRouter)
+app.use(notFound)
 
-
-app.use((err, req, res, next) => { 
-  err.status = err.status || 500
-  const handledError = err.status < 500
-
-  res.status(err.status).json({
-    message: handledError ? err.message : 'Internal Server Error'
-  })
-
- })
+app.use(errorHandlerMiddleware)
 
 
 const port = process.env.PORT | 3000
